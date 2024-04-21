@@ -8,6 +8,7 @@ import ManageExpense from './screens/ManageExpense';
 import RecentExpenses from './screens/RecentExpenses';
 import {GlobalStyles} from './constants/styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import IconsButton from './components/UI/IconsButton';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -15,12 +16,23 @@ export default function App() {
   function ExpensesOverview() {
     return (
       <BottomTab.Navigator
-        screenOptions={{
+        screenOptions={({navigation}) => ({
           headerStyle: {backgroundColor: GlobalStyles.colors.secondaryBlue},
           headerTintColor: GlobalStyles.colors.primarytext,
           tabBarStyle: {backgroundColor: GlobalStyles.colors.secondaryBlue},
           tabBarActiveTintColor: 'white',
-        }}>
+          headerRight: ({tintColor}) => (
+            <IconsButton
+              icon="plus"
+              size={24}
+              color={tintColor}
+              onpress={() => {
+                console.log('plus clicked');
+                navigation.navigate('ManageExpense');
+              }}
+            />
+          ),
+        })}>
         <BottomTab.Screen
           name="RecentExpenses"
           component={RecentExpenses}
@@ -50,13 +62,23 @@ export default function App() {
     <>
       <StatusBar backgroundColor={'red'} />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {backgroundColor: GlobalStyles.colors.secondaryBlue},
+            headerTintColor: 'white',
+          }}>
           <Stack.Screen
             name="ExpenseOverview"
             component={ExpensesOverview}
             options={{headerShown: false}}
           />
-          <Stack.Screen name="ManageExpense" component={ManageExpense} />
+          <Stack.Screen
+            name="ManageExpense"
+            component={ManageExpense}
+            options={{
+              presentation: 'modal',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
