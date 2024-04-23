@@ -14,19 +14,27 @@ export default function ManageExpense({route, navigation}) {
     });
   }, [navigation, isEditing]);
 
-  function deleteExpenseHandler() {}
+  function deleteExpenseHandler() {
+    navigation.goBack();
+    console.log('delete icon clicked');
+  }
 
-  function cancelHandler() {}
+  function cancelHandler() {
+    console.log('cancel clicked');
+    navigation.goBack();
+  }
 
-  function confirmHandler() {}
+  function confirmHandler() {
+    navigation.goBack();
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
-        <CustomButton style={styles.button} mode="flat" onpress={cancelHandler}>
+        <CustomButton style={styles.button} mode="flat" onPress={cancelHandler}>
           Cancel
         </CustomButton>
-        <CustomButton style={styles.button} onpress={confirmHandler}>
+        <CustomButton style={styles.button} onPress={confirmHandler}>
           {isEditing ? 'Update' : 'Add'}
         </CustomButton>
       </View>
