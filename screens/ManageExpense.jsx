@@ -48,7 +48,7 @@ export default function ManageExpense({route, navigation}) {
     <View style={styles.container}>
       <View style={styles.buttons}>
         <CustomButton style={styles.button} mode="flat" onPress={cancelHandler}>
-          Cancel
+          cancel
         </CustomButton>
         <CustomButton style={styles.button} onPress={confirmHandler}>
           {isEditing ? 'Update' : 'Add'}
