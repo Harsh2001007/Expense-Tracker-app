@@ -141,10 +141,4 @@ const styles = StyleSheet.create({
     minWidth: 120,
     marginHorizontal: 8,
   },
-  invalidLabel: {
-    color: 'crimson',
-  },
-  invalidInput: {
-    backgroundColor: 'pink',
-  },
 });
