@@ -11,6 +11,10 @@ export default function ManageExpense({route, navigation}) {
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
 
+  const selectedExpense = expensesCtx.expenses.find(
+    expense => expense.id === editedExpenseId,
+  );
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? 'Edit Expense' : 'Add Expense',
@@ -28,34 +32,23 @@ export default function ManageExpense({route, navigation}) {
     navigation.goBack();
   }
 
-  function confirmHandler() {
+  function confirmHandler(expenseData) {
     if (isEditing) {
-      expensesCtx.updateExpense(editedExpenseId, {
-        description: 'test !!!!',
-        amount: 89,
-        date: new Date('2024-04-20'),
-      });
+      expensesCtx.updateExpense(editedExpenseId, expenseData);
     } else {
-      expensesCtx.addExpense({
-        description: 'test',
-        amount: 100,
-        date: new Date('2024-04-23'),
-      });
+      expensesCtx.addExpense(expenseData);
     }
     navigation.goBack();
   }
 
   return (
     <View style={styles.container}>
-      <ExpenseForm />
-      <View style={styles.buttons}>
-        <CustomButton style={styles.button} mode="flat" onPress={cancelHandler}>
-          cancel
-        </CustomButton>
-        <CustomButton style={styles.button} onPress={confirmHandler}>
-          {isEditing ? 'Update' : 'Add'}
-        </CustomButton>
-      </View>
+      <ExpenseForm
+        onCancel={cancelHandler}
+        submitButtonLabel={isEditing ? 'Update' : 'Add'}
+        onSubmit={confirmHandler}
+        defaultValues={selectedExpense}
+      />
       <View style={styles.deleteContainer}>
         {isEditing && (
           <IconsButton
@@ -82,14 +75,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: 'white',
     alignItems: 'center',
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
   },
 });
