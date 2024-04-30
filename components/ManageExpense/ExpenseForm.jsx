@@ -65,7 +65,7 @@ function ExpenseForm({submitButtonLabel, onCancel, onSubmit, defaultValues}) {
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>Your Expense</Text>
+      <Text style={styles.title}>Your Expenses</Text>
       <View style={styles.inputsRow}>
         <Input
           style={styles.rowInput}
