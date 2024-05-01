@@ -17,7 +17,7 @@ export default function ExpenseItem({id, description, date, amount}) {
       onPress={expensePressedHandler}
       style={({pressed}) => pressed && styles.pressed}>
       <View style={styles.expenseItem}>
-        <View>
+        <View style={{maxWidth: '70%'}}>
           <Text style={[styles.textBase, styles.description]}>
             {description}
           </Text>
